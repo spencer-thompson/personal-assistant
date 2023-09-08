@@ -1,2 +1,5 @@
 openai
 dotenv
+streamlit
+pandas
+numpy
