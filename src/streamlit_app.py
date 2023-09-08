@@ -18,9 +18,6 @@ if "messages" not in st.session_state:
 ai = GPT()
 
 prompt = st.chat_input("Say something")
-if prompt:
-    st.write(f"User: {prompt}") 
-    st.chat_message("user", prompt)
     # if prompt == "hello": # Need to fix auto chat deletion
     #     time.sleep(1)
     #     with st.chat_message("user"):
@@ -30,7 +27,7 @@ if prompt:
 st.sidebar.markdown("# Main page 🎈")
 
 ai.run(prompt)
-st.session_state.messages = ai.messages
+st.session_state.messages.append(ai.messages)
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
