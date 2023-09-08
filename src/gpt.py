@@ -30,9 +30,9 @@ class GPT():
 
     def run(self, query):
         """Basic Running of AI system"""
-        self.add_message(query)
+        self.add_message(role="user", content=query)
 
-        response = self.call_openai_api(query)
+        response = self.call_openai_api()
 
         self.add_message(
             role = response["choices"][0]["message"]["role"],
