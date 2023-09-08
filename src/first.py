@@ -1,10 +1,8 @@
-print("hello world")
+class GPT:
 
-print("smh")
-
-dev = "hello"
-print("my name is" + dev)
+    def __init__(self):
+        self.name = "bruh"
 
 
-if dev == "hello":
-    print(dev)
+    def print_name(self):
+        print(self.name)
