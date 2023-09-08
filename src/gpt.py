@@ -49,8 +49,6 @@ class GPT():
     def call_openai_api(self):
         """Docstring"""
 
-
-
         response = openai.ChatCompletion.create(
             model = self.model,
             temperature = self.temperature,
