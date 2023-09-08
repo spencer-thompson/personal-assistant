@@ -49,6 +49,9 @@ class GPT():
     def update_model(self, new_model: str):
         self.model = new_model
 
+    def __str__(self):
+        return f"Model: {self.model} | Temperature: {self.temperature}, Message Length: {len(self.messages)}"
+
 
     def call_openai_api(self):
         """Docstring"""

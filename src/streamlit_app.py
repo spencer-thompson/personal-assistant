@@ -24,8 +24,6 @@ with st.sidebar:
     gpt4 = st.toggle(label="GPT4")
 
 
-with st.sidebar:
-    gpt4 = st.toggle(label="GPT4")
 
 if gpt4:
     st.session_state.ai.update_model("gpt-4")
