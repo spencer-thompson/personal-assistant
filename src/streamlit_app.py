@@ -12,10 +12,11 @@ from gpt import GPT
 # Welcome.
 """
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+if "ai" not in st.session_state:
+    st.session_state.ai = GPT()
 
-ai = GPT()
+
+st.sidebar.markdown("# Main page 🎈")
 
 prompt = st.chat_input("Say something")
     # if prompt == "hello": # Need to fix auto chat deletion
@@ -23,15 +24,18 @@ prompt = st.chat_input("Say something")
     #     with st.chat_message("user"):
     #         st.write("Hello 👋")
 
+if prompt:
 # PAGES?
-st.sidebar.markdown("# Main page 🎈")
 
-ai.run(prompt)
-st.session_state.messages.append(ai.messages)
+    print(st.session_state.ai.messages)
+    st.session_state.ai.run(prompt)
+    st.session_state.messages = st.session_state.ai.messages
 
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+
+
+    for message in st.session_state.ai.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
 
 # with st.echo(code_location='below'):
 # this will give the output of the code below onto the page
