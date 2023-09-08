@@ -15,11 +15,15 @@ st.set_page_config(layout="wide")
 # Welcome.
 """
 
-if "ai" not in st.session_state:
-    st.session_state.ai = GPT()
 
 
-st.sidebar.markdown("# Main page 🎈")
+with st.sidebar:
+    GPT4 = st.toggle(label="GPT4")
+    if GPT4 == True:
+        if "ai" not in st.session_state:
+            st.session_state.ai = GPT(model="gpt-4")
+    else:
+        
 
 prompt = st.chat_input("Say something")
     # if prompt == "hello": # Need to fix auto chat deletion
