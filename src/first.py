@@ -3,4 +3,5 @@ print("hello world")
 print("smh")
 
 dev = "hello"
-print(dev)
+if dev == "hello":
+    print(dev)
