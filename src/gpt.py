@@ -46,6 +46,10 @@ class GPT():
         self.messages.append({"role": role, "content": content})
 
 
+    def update_model(self, new_model: str):
+        self.model = new_model
+
+
     def call_openai_api(self):
         """Docstring"""
 
