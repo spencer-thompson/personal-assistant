@@ -8,6 +8,9 @@ import time
 
 from gpt import GPT
 
+st.set_page_config(layout="wide")
+
+
 """
 # Welcome.
 """
