@@ -15,6 +15,7 @@ import time
 prompt = st.chat_input("Say something")
 if prompt:
     st.write(f"User: {prompt}") 
+    st.chat_message("user", prompt)
     # if prompt == "hello": # Need to fix auto chat deletion
     #     time.sleep(1)
     #     with st.chat_message("user"):
