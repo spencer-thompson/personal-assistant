@@ -42,4 +42,4 @@ class GPT():
         return response["choices"][0]["message"]["content"]
     
     def run(self, query):
-        return self.call_openai_api(self, query)
+        return self.call_openai_api(query)
