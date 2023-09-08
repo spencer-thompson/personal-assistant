@@ -17,14 +17,19 @@ st.set_page_config(layout="wide")
 
 
 
+if "ai" not in st.session_state:
+    st.session_state.ai = GPT()
+
 with st.sidebar:
     gpt4 = st.toggle(label="GPT4")
 
-if "ai" not in st.session_state:
-    if gpt4 == True:
-        st.session_state.ai = GPT(model="gpt-4", system_message="You are an AI assistant. Your model is GPT-4")
-    else:
-        st.session_state.ai = GPT()
+
+with st.sidebar:
+    gpt4 = st.toggle(label="GPT4")
+
+if gpt4:
+    st.session_state.ai.update_model("gpt-4")
+        
         
 
 prompt = st.chat_input("Say something")
