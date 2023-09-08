@@ -18,11 +18,13 @@ st.set_page_config(layout="wide")
 
 
 with st.sidebar:
-    GPT4 = st.toggle(label="GPT4")
-    if GPT4 == True:
-        if "ai" not in st.session_state:
-            st.session_state.ai = GPT(model="gpt-4")
+    gpt4 = st.toggle(label="GPT4")
+
+if "ai" not in st.session_state:
+    if gpt4:
+        st.session_state.ai = GPT(model="gpt-4")
     else:
+        st.session_state.ai = GPT()
         
 
 prompt = st.chat_input("Say something")
