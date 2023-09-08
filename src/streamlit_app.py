@@ -15,10 +15,10 @@ import time
 prompt = st.chat_input("Say something")
 if prompt:
     st.write(f"User: {prompt}") 
-    if prompt == "hello": # Need to fix auto chat deletion
-        time.sleep(1)
-        with st.chat_message("user"):
-            st.write("Hello 👋")
+    # if prompt == "hello": # Need to fix auto chat deletion
+    #     time.sleep(1)
+    #     with st.chat_message("user"):
+    #         st.write("Hello 👋")
 
 # PAGES?
 st.sidebar.markdown("# Main page 🎈")
