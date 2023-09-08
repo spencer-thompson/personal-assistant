@@ -4,21 +4,25 @@ import math
 import pandas as pd
 import streamlit as st
 import numpy as np
+import time
 
 """
 # Welcome.
 """
 
-st.write("")
+
+
+prompt = st.chat_input("Say something")
+if prompt:
+    st.write(f"User: {prompt}") 
+    if prompt == "hello": # Need to fix auto chat deletion
+        time.sleep(1)
+        with st.chat_message("user"):
+            st.write("Hello 👋")
+
 # PAGES?
 st.sidebar.markdown("# Main page 🎈")
 
 
-
-map_data = pd.DataFrame(
-    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
-    columns=['lat', 'lon'])
-
-st.map(map_data)
 # with st.echo(code_location='below'):
 # this will give the output of the code below onto the page
