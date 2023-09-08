@@ -28,7 +28,25 @@ class GPT():
         load_dotenv()
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    def call_openai_api(self, query: str):
+    def run(self, query):
+        """Basic Running of AI system"""
+        self.add_message(query)
+
+        response = self.call_openai_api(query)
+
+        self.add_message(
+            role = response["choices"][0]["message"]["role"],
+            content = response["choices"][0]["message"]["content"]
+        )
+    
+        return response["choices"][0]["message"]["content"]
+    
+    def add_message(self, role: str, content: str):
+        """Adds a new message to self.messages"""
+        self.messages.append({"role": role, "content": content})
+
+
+    def call_openai_api(self):
         """Docstring"""
 
 
@@ -36,10 +54,8 @@ class GPT():
         response = openai.ChatCompletion.create(
             model = self.model,
             temperature = self.temperature,
-            messages = self.messages + [{"role": "user", "content": query}]
+            messages = self.system_message + self.messages
         )
 
-        return response["choices"][0]["message"]["content"]
+        return response
     
-    def run(self, query):
-        return self.call_openai_api(query)
