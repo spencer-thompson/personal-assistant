@@ -3,3 +3,11 @@ dotenv
 streamlit
 pandas
 numpy
+
+# For Text/Email
+# dotenv
+imaplib
+imapclient
+Email
+os
+socket
