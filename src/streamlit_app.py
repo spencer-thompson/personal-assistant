@@ -24,10 +24,10 @@ with st.sidebar:
     gpt4 = st.toggle(label="GPT4")
 
 
-
 if gpt4:
     st.session_state.ai.update_model("gpt-4")
-        
+else:
+    st.session_state.ai.update_model("gpt-3.5-turbo")        
         
 
 prompt = st.chat_input("Say something")
@@ -38,8 +38,7 @@ prompt = st.chat_input("Say something")
 
 if prompt:
 # PAGES?
-
-    print(st.session_state.ai.messages)
+    print(st.session_state.ai)
     st.session_state.ai.run(prompt)
     st.session_state.messages = st.session_state.ai.messages
 
