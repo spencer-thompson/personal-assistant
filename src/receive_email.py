@@ -19,6 +19,7 @@ SPECIFIC_CONTACT = os.getenv("SPECIFIC_CONTACT")
 
 
 # Email extraction
+# Will receive email, then extract and return data from .txt as a string
 def extract_text_from_email(email_address, email_password, specific_contact):
     try:
          # Email server settings
@@ -81,6 +82,7 @@ def extract_text_from_email(email_address, email_password, specific_contact):
 
 
 # # Callable Method
+# # Will receive email and download .txt file to specified directory
 # def process_latest_email_from_contact(email_address, email_password, specific_contact, save_dir):
 #     try:
 #         # Email server settings
