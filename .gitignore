@@ -5,7 +5,3 @@ __pycache__/
 
 # Environment Variables
 .env
-
-# Experimental from local
-email_process.py
-receive_email.py
