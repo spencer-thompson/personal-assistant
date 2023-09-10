@@ -1,5 +1,7 @@
 import imapclient
 from imapclient import IMAPClient
+import signal
+import sys
 
 import receive_email
 
@@ -13,10 +15,15 @@ def on_new_email_handler(folder, uid, message_data):
     print(f"UID: {uid}")
     print(f"Message Data: {message_data}")
 
+
+def exit_gracefully(signum, frame):
+    print("Exiting gracefully...")
+    sys.exit(0)
+
 if __name__ == "__main__":
     # Connect to the IMAP server
-    with IMAPClient(IMAP_SERVER) as client:
-        client.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+    with IMAPClient(receive_email.IMAP_SERVER) as client:
+        client.login(receive_email.EMAIL_ADDRESS, receive_email.EMAIL_PASSWORD)
         client.select_folder('INBOX')
 
         # Start the IDLE mode to listen for new emails
@@ -25,7 +32,9 @@ if __name__ == "__main__":
         # Add a callback function to handle new emails
         client.add_callback(on_new_email_handler, ['EXISTS'])
 
-        # Keep the script running indefinitely
+        # Set up a signal handler to allow graceful exit
+        signal.signal(signal.SIGINT, exit_gracefully)
+
         print("Email listener started. Press Ctrl+C to exit.")
         try:
             while True:
