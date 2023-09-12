@@ -41,6 +41,26 @@ class GPT():
     
         return response["choices"][0]["message"]["content"]
     
+    def run_stream(self, query: str):
+        """Returns a Generator. Proper use: `for i in self.run_stream(input): print(i, end='')`"""
+        self.add_message(role="user", content=query)
+
+        response = openai.ChatCompletion.create(
+            model = self.model,
+            temperature = self.temperature,
+            messages = self.system_message + self.messages,
+            stream = True
+        )
+
+        total_response = ''
+        for chunk in response:
+            yield chunk["choices"][0]["delta"].get("content", '\n') # * maybe change later
+
+            total_response += chunk["choices"][0]["delta"].get("content", '')
+
+        self.add_message(role='assistant', content=total_response)
+            
+    
     def add_message(self, role: str, content: str):
         """Adds a new message to self.messages"""
         self.messages.append({"role": role, "content": content})
