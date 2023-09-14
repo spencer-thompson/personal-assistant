@@ -39,7 +39,7 @@ class GPT():
         if mode == 0:
             answer = gpt_instance._conversation(query)
         
-        return answer
+        return answer["choices"][0]["message"]["content"]
 
     def run(self, query: str, mode = 0, gpt_model = "gpt-3.5-turbo") -> str:
         """Input to get access to all of the various response types within the GPT model
@@ -58,6 +58,7 @@ class GPT():
         """Essentially the same as the self.run method, but streams responses.
         
         Returns a Generator. Proper use: `for i in self.run_stream(input): print(i, end='')`"""
+        
         self._add_message(role="user", content=query)
 
 
@@ -112,7 +113,7 @@ class GPT():
             content = response["choices"][0]["message"]["content"]
         )
     
-        return response["choices"][0]["message"]["content"]
+        return response
     
     # --- Notes ---
     # We can start "remodeling" Because we are on a new branch.
@@ -124,6 +125,6 @@ if __name__ == "__main__":
     ai = GPT(model = "gpt-4")
     user_input = input(f"Chatting with {ai._model} | (q to quit):\n")
     while user_input != "q":
-        for token in ai.srun(user_input):
+        for token in ai.run(user_input):
             print(token, end='')
         user_input = input()
