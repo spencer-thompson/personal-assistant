@@ -113,3 +113,7 @@ class GPT():
     # You're welcome to go crazy haha.
     # Maybe you can show me what you want to implement in this new branch,
     # and then we can start moving together on this.
+
+if __name__ == "__main__":
+    ai = GPT(model = "gpt-3.5-turbo")
+    print(input(ai.srun(input())))
