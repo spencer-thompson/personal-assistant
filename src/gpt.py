@@ -84,3 +84,8 @@ class GPT():
 
         return response
     
+    # --- Notes ---
+    # We can start "remodeling" Because we are on a new branch.
+    # You're welcome to go crazy haha.
+    # Maybe you can show me what you want to implement in this new branch,
+    # and then we can start moving together on this.
