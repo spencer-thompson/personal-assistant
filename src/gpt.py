@@ -28,8 +28,8 @@ class GPT():
         load_dotenv()
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    def run(self, query: str):
-        """Basic Running of AI system"""
+    def run(self, query: str) -> str:
+        """Basic Running of AI system, Takes a string returns a string."""
         self.add_message(role="user", content=query)
 
         response = self.call_openai_api()
