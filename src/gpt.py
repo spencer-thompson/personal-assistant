@@ -42,8 +42,10 @@ class GPT():
             
         return response["choices"][0]["message"]["content"]
     
-    def srun(self, query: str):
-        """Returns a Generator. Proper use: `for i in self.run_stream(input): print(i, end='')`"""
+    def srun(self, query: str) -> Generator:
+        """Essentially the same as the self.run method, but streams responses.
+        
+        Returns a Generator. Proper use: `for i in self.run_stream(input): print(i, end='')`"""
         self.add_message(role="user", content=query)
 
         response = openai.ChatCompletion.create(
