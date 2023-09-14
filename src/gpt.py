@@ -3,6 +3,8 @@ Docstring
 
 Home of the GPT Class
 
+each instance of the GPT class is a conversation thread
+
 """
 import openai
 
@@ -28,17 +30,12 @@ class GPT():
         load_dotenv()
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    def run(self, query: str) -> str:
-        """Basic Running of AI system, Takes a string returns a string."""
-        self.add_message(role="user", content=query)
-
-        response = self.call_openai_api()
-
-        self.add_message(
-            role = response["choices"][0]["message"]["role"],
-            content = response["choices"][0]["message"]["content"]
-        )
-    
+    def run(self, query: str, mode = 0) -> str:
+        """Input to get access to all of the various response types within the GPT model
+        mode 0: typical access to the GPT model"""
+        if mode == 0:
+            response = self._conversation(query)
+            
         return response["choices"][0]["message"]["content"]
     
     def srun(self, query: str):
@@ -83,6 +80,19 @@ class GPT():
         )
 
         return response
+    
+    def _conversation(self, query: str):
+        """Basic Running of AI system"""
+        self.add_message(role="user", content=query)
+
+        response = self.call_openai_api()
+
+        self.add_message(
+            role = response["choices"][0]["message"]["role"],
+            content = response["choices"][0]["message"]["content"]
+        )
+    
+        return response["choices"][0]["message"]["content"]
     
     # --- Notes ---
     # We can start "remodeling" Because we are on a new branch.

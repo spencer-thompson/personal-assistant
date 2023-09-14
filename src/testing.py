@@ -4,7 +4,6 @@ from gpt import GPT
 
 ai = GPT(system_message="You are a friendly robot, you always bring up python programming in conversation.")
 
-
 for i in range(3):
     user_input = input()
     for i in ai.run_stream(user_input):
