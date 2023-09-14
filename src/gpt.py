@@ -40,7 +40,7 @@ class GPT():
     
     def srun(self, query: str):
         """Returns a Generator. Proper use: `for i in self.run_stream(input): print(i, end='')`"""
-        self.add_message(role="user", content=query)
+        self._add_message(role="user", content=query)
 
         response = openai.ChatCompletion.create(
             model = self._model,
@@ -55,10 +55,10 @@ class GPT():
 
             total_response += chunk["choices"][0]["delta"].get("content", '')
 
-        self.add_message(role='assistant', content=total_response)
+        self._add_message(role='assistant', content=total_response)
             
     
-    def add_message(self, role: str, content: str):
+    def _add_message(self, role: str, content: str):
         """Adds a new message to self.messages"""
         self.messages.append({"role": role, "content": content})
 
@@ -82,11 +82,11 @@ class GPT():
     
     def _conversation(self, query: str):
         """Basic Running of AI system"""
-        self.add_message(role="user", content=query)
+        self._add_message(role="user", content=query)
 
         response = self.call_openai_api()
 
-        self.add_message(
+        self._add_message(
             role = response["choices"][0]["message"]["role"],
             content = response["choices"][0]["message"]["content"]
         )
