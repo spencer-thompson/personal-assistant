@@ -8,6 +8,8 @@ each instance of the GPT class is a conversation thread
 """
 import openai
 
+from typing import Generator
+
 from dotenv import load_dotenv
 import os
 
@@ -30,17 +32,27 @@ class GPT():
         load_dotenv()
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    def run(self, query: str, mode = 0):
+    def run(self, query: str, mode = 0) -> str:
         """Input to get access to all of the various response types within the GPT model
-        mode 0: typical access to the GPT model"""
+        mode 0: typical access to the GPT model
+        
+        Returns a string."""
         if mode == 0:
             response = self._conversation(query)
             
         return response["choices"][0]["message"]["content"]
     
+<<<<<<< HEAD
     def srun(self, query: str):
         """Returns a Generator. Proper use: `for i in self.run_stream(input): print(i, end='')`"""
         self._add_message(role="user", content=query)
+=======
+    def srun(self, query: str) -> Generator:
+        """Essentially the same as the self.run method, but streams responses.
+        
+        Returns a Generator. Proper use: `for i in self.run_stream(input): print(i, end='')`"""
+        self.add_message(role="user", content=query)
+>>>>>>> branch 'newgpt' of https://github.com/spencer-thompson/personal-assistant.git
 
         response = openai.ChatCompletion.create(
             model = self._model,
