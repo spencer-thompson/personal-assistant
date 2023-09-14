@@ -42,17 +42,11 @@ class GPT():
             
         return response["choices"][0]["message"]["content"]
     
-<<<<<<< HEAD
-    def srun(self, query: str):
-        """Returns a Generator. Proper use: `for i in self.run_stream(input): print(i, end='')`"""
-        self._add_message(role="user", content=query)
-=======
     def srun(self, query: str) -> Generator:
         """Essentially the same as the self.run method, but streams responses.
         
         Returns a Generator. Proper use: `for i in self.run_stream(input): print(i, end='')`"""
         self.add_message(role="user", content=query)
->>>>>>> branch 'newgpt' of https://github.com/spencer-thompson/personal-assistant.git
 
         response = openai.ChatCompletion.create(
             model = self._model,
@@ -93,7 +87,7 @@ class GPT():
         return response
     
     def _conversation(self, query: str):
-        """Basic Running of AI system"""
+        """Basic Running of AI system, with simple memory (appends new messages)"""
         self._add_message(role="user", content=query)
 
         response = self.call_openai_api()
