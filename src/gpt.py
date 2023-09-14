@@ -127,7 +127,7 @@ if __name__ == "__main__":
     ai = GPT(model = "gpt-4")
     user_input = input(f"Chatting with {ai._model} | (q to quit):\n")
     while user_input != "q" or user_input == "Q":
-        for token in ai.run(user_input):
+        for token in ai.srun(user_input):
             print(token, end='')
         print()
         user_input = input()
