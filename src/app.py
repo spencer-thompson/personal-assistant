@@ -1,3 +1,10 @@
+"""
+Usage:
+
+streamlit run app.py
+"""
+
+
 import streamlit as st
 
 from gpt import GPT
