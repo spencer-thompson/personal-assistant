@@ -32,11 +32,14 @@ class GPT():
         load_dotenv()
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    def run(self, query: str, mode = 0) -> str:
+    def run(self, query: str, mode = 0, gpt_model = "gpt-3.5-turbo") -> str:
         """Input to get access to all of the various response types within the GPT model
         mode 0: typical access to the GPT model
         
         Returns a string."""
+        
+        self._update_model(gpt_model)
+        
         if mode == 0:
             response = self._conversation(query)
             
@@ -73,13 +76,13 @@ class GPT():
         self.messages.append({"role": role, "content": content})
 
 
-    def update_model(self, new_model: str):
+    def _update_model(self, new_model: str):
         self._model = new_model
 
     def __str__(self):
         return f"Model: {self._model} | Temperature: {self.temperature}, Message Length: {len(self.messages)}"
 
-    def call_openai_api(self):
+    def _call_openai_api(self):
         """Docstring"""
 
         response = openai.ChatCompletion.create(
@@ -94,7 +97,7 @@ class GPT():
         """Basic Running of AI system"""
         self._add_message(role="user", content=query)
 
-        response = self.call_openai_api()
+        response = self._call_openai_api()
 
         self._add_message(
             role = response["choices"][0]["message"]["role"],
