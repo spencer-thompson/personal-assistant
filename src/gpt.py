@@ -127,4 +127,5 @@ if __name__ == "__main__":
     while user_input != "q" or user_input == "Q":
         for token in ai.run(user_input):
             print(token, end='')
+        print()
         user_input = input()
