@@ -32,7 +32,9 @@ class GPT():
 
     def run(self, query: str, mode = 0) -> str:
         """Input to get access to all of the various response types within the GPT model
-        mode 0: typical access to the GPT model"""
+        mode 0: typical access to the GPT model
+        
+        Returns a string."""
         if mode == 0:
             response = self._conversation(query)
             
