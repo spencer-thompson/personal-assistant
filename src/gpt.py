@@ -34,7 +34,8 @@ class GPT():
         
     @staticmethod
     def zero_shot(query: str, mode = 0, gpt_model = "gpt-3.5-turbo"):
-        return string
+        pass
+        # return string
 
     def run(self, query: str, mode = 0, gpt_model = "gpt-3.5-turbo") -> str:
         """Input to get access to all of the various response types within the GPT model
