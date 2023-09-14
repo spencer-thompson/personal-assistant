@@ -115,5 +115,14 @@ class GPT():
     # and then we can start moving together on this.
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     ai = GPT(model = "gpt-3.5-turbo")
     print(input(ai.srun(input())))
+=======
+    ai = GPT(model = "gpt-4")
+    user_input = input(f"Chatting with {ai._model} | (q to quit):\n")
+    while user_input != "q":
+        for token in ai.srun(user_input):
+            print(token, end='')
+        user_input = input()
+>>>>>>> c91fc6da2bf2b9b2c8381633de13a0796233d045
