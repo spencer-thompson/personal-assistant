@@ -33,9 +33,13 @@ class GPT():
         openai.api_key = os.getenv("OPENAI_API_KEY")
         
     @staticmethod
-    def zero_shot(query: str, mode = 0, gpt_model = "gpt-3.5-turbo"):
-        pass
-        # return string
+    def zero_shot(query: str, mode = 0, gpt_model = "gpt-3.5-turbo", temperature = .7):
+        gpt_instance = GPT(gpt_model, temperature)
+        
+        if mode == 0:
+            answer = gpt_instance._conversation(query)
+        
+        return answer
 
     def run(self, query: str, mode = 0, gpt_model = "gpt-3.5-turbo") -> str:
         """Input to get access to all of the various response types within the GPT model
@@ -96,7 +100,9 @@ class GPT():
         return response
     
     def _conversation(self, query: str):
-        """Basic Running of AI system, with simple memory (appends new messages)"""
+        """Basic Running of AI system, with simple memory (appends new messages) returns information 
+        in the form response["choices"][0]["message"]["content"]"""
+        
         self._add_message(role="user", content=query)
 
         response = self._call_openai_api()
@@ -115,8 +121,6 @@ class GPT():
     # and then we can start moving together on this.
 
 if __name__ == "__main__":
-    ai = GPT(model = "gpt-3.5-turbo")
-    print(input(ai.srun(input())))
     ai = GPT(model = "gpt-4")
     user_input = input(f"Chatting with {ai._model} | (q to quit):\n")
     while user_input != "q":
