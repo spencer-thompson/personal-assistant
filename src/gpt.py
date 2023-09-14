@@ -8,6 +8,8 @@ each instance of the GPT class is a conversation thread
 """
 import openai
 
+from typing import Generator
+
 from dotenv import load_dotenv
 import os
 
