@@ -22,3 +22,8 @@ Class GPT()
 	def __to_others(length_wanted):
 
 GPT().zero_shot()
+
+----
+
+Database stuff:
+Redis and/postgres
