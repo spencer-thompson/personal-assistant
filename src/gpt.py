@@ -54,7 +54,7 @@ class GPT():
 
         total_response = ''
         for chunk in response:
-            yield chunk["choices"][0]["delta"].get("content", '') # * maybe change later
+            yield chunk["choices"][0]["delta"].get("content", '\n') # * maybe change later
 
             total_response += chunk["choices"][0]["delta"].get("content", '')
 
