@@ -20,7 +20,7 @@ class GPT():
             system_message: str = "You are a helpful assistant"
         ):
         """Docstring"""
-        self.model = model
+        self._model = model
         self.temperature = temperature
         self.system_message = [
             {"role": "system", "content": system_message}
@@ -43,7 +43,7 @@ class GPT():
         self.add_message(role="user", content=query)
 
         response = openai.ChatCompletion.create(
-            model = self.model,
+            model = self._model,
             temperature = self.temperature,
             messages = self.system_message + self.messages,
             stream = True
@@ -64,17 +64,16 @@ class GPT():
 
 
     def update_model(self, new_model: str):
-        self.model = new_model
+        self._model = new_model
 
     def __str__(self):
-        return f"Model: {self.model} | Temperature: {self.temperature}, Message Length: {len(self.messages)}"
-
+        return f"Model: {self._model} | Temperature: {self.temperature}, Message Length: {len(self.messages)}"
 
     def call_openai_api(self):
         """Docstring"""
 
         response = openai.ChatCompletion.create(
-            model = self.model,
+            model = self._model,
             temperature = self.temperature,
             messages = self.system_message + self.messages
         )
