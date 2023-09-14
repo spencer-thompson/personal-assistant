@@ -41,24 +41,26 @@ class GPT():
         
         return answer["choices"][0]["message"]["content"]
 
-    def run(self, query: str, mode = 0, gpt_model = "gpt-3.5-turbo") -> str:
+    def run(self, query: str, mode: int = 0, model: str = "gpt-3.5-turbo") -> str:
         """Input to get access to all of the various response types within the GPT model
         mode 0: typical access to the GPT model
         
         Returns a string."""
         
-        self._update_model(gpt_model)
+        self._update_model(model)
         
         if mode == 0:
             response = self._conversation(query)
             
         return response["choices"][0]["message"]["content"]
     
-    def srun(self, query: str) -> Generator:
+    def srun(self, query: str, mode: int = 0, model: str = "gpt-3.5-turbo") -> Generator:
         """Essentially the same as the self.run method, but streams responses.
         
         Returns a Generator. Proper use: `for i in self.run_stream(input): print(i, end='')`"""
         
+        self._update_model(model)
+
         self._add_message(role="user", content=query)
 
 

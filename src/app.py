@@ -37,19 +37,20 @@ with st.container():
 
 
 if model == ":rainbow[GPT-4]":
-    st.session_state["ai"].update_model("gpt-4")
+    # st.session_state["ai"].update_model("gpt-4")
+    gpt_model = "gpt-4"
 else:
-    st.session_state["ai"].update_model("gpt-3.5-turbo")
+    # st.session_state["ai"].update_model("gpt-3.5-turbo")
+    gpt_model = "gpt-3.5-turbo"
+
+
 
 # --- Chat Area ---
-user_input = st.chat_input("Say something")
-
-
-
+user_input = st.chat_input("Send a message")
 
 if user_input:
 
-    print(st.session_state["ai"])
+    print(st.session_state["ai"]) # Testing
     
 
     for message in st.session_state["ai"].messages:
@@ -60,11 +61,10 @@ if user_input:
 
     placeholder = st.empty()
     message = ''
-    for token in st.session_state["ai"].run_stream(user_input):
+    for token in st.session_state["ai"].srun(
+        query = user_input,
+        model = gpt_model
+    ):
         message += token
         placeholder.chat_message("ai").markdown(message, unsafe_allow_html=True)
 
-
-
-    # for message in st.session_state["ai"].messages:
-    #     placeholder.chat_message(message["role"]).markdown(message["content"])
