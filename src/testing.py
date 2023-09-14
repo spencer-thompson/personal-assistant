@@ -6,7 +6,7 @@ ai = GPT(system_message="You are a friendly robot, you always bring up python pr
 
 for i in range(3):
     user_input = input()
-    for i in ai.run_stream(user_input):
+    for i in ai.srun(user_input):
         print(i, end='')
 
 # for mes in ai.messages:
