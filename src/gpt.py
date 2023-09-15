@@ -41,13 +41,11 @@ class GPT():
         
         return answer["choices"][0]["message"]["content"]
 
-    def run(self, query: str, mode: int = 0, model: str = "gpt-3.5-turbo") -> str:
+    def run(self, query: str, mode: int = 0) -> str:
         """Input to get access to all of the various response types within the GPT model
         mode 0: typical access to the GPT model
         
         Returns a string."""
-        
-        self._update_model(model)
         
         if mode == 0:
             response = self._conversation(query)
