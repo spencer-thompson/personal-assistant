@@ -4,10 +4,19 @@ Usage:
 streamlit run app.py
 """
 
-
 import streamlit as st
 
 from gpt import GPT
+
+ST_SYSTEM_MSG = """
+You are a helpful assistant.
+Your output is formatted as github flavored markdown.
+If output is mathematical ALWAYS use LaTeX wrapped in "$"s
+LaTeX expressions must by wrapped in "$" or "$$" (the "$$" must be on their own lines).
+Colored text, using the syntax :color[text to be colored],
+where color needs to be replaced with any of the following
+supported colors: blue, green, orange, red, violet, gray/grey, rainbow.
+"""
 
 # --- Page Config ---
 st.set_page_config(
@@ -17,7 +26,7 @@ st.set_page_config(
 
 # --- Initialize GPT() Object into Streamlit ---
 if "ai" not in st.session_state:
-    st.session_state["ai"] = GPT(system_message="You are a helpful assistant, you output to github flavored markdown.")
+    st.session_state["ai"] = GPT(model="gpt-4", system_message="ST_SYSTEM_MSG")
 
 # --- Select AI Options ---
 with st.container():
@@ -67,4 +76,6 @@ if user_input:
     ):
         message += token
         placeholder.chat_message("ai").markdown(message, unsafe_allow_html=True)
+
+    # print(message) # Testing
 
