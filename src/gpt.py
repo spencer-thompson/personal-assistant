@@ -54,12 +54,10 @@ class GPT():
             
         return response["choices"][0]["message"]["content"]
     
-    def srun(self, query: str, mode: int = 0, model: str = "gpt-3.5-turbo") -> Generator:
+    def srun(self, query: str, mode: int = 0) -> Generator:
         """Essentially the same as the self.run method, but streams responses.
         
         Returns a Generator. Proper use: `for i in self.run_stream(input): print(i, end='')`"""
-        
-        self._update_model(model)
 
         self._add_message(role="user", content=query)
 
@@ -85,7 +83,8 @@ class GPT():
         self.messages.append({"role": role, "content": content})
 
 
-    def _update_model(self, new_model: str):
+    def update_model(self, new_model: str):
+        """Updates the model that your GPT class instance is currently running on"""
         self._model = new_model
 
     def __str__(self):
