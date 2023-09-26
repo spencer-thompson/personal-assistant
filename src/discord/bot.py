@@ -1,6 +1,10 @@
 import discord
 from dotenv import load_dotenv
 import os
+import sys
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(project_dir)
+# Currently, "gpt.py" needs to be changed to "gpt1.py" to run.
 from gpt import GPT
 
 load_dotenv()
