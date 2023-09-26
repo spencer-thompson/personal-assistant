@@ -1,10 +1,17 @@
+"""
+WIP! Current functionality includes ChatGPT integration.
+
+The bot is currently in my test server and will be rolled out to Google Developers soon.
+
+Requirements: Discord bot with 'bot' scopes, bot added to server, and bot token_id
+"""
 import discord
 from dotenv import load_dotenv
 import os
 import sys
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.append(project_dir)
-# Currently, "gpt.py" needs to be changed to "gpt1.py" to run.
+# Currently, "gpt.py" needs to be changed to "gpt1.py" to run. Otherwise it will pull from the incorrect "gpt.py" file.
 from gpt import GPT
 
 load_dotenv()
