@@ -9,8 +9,7 @@ import discord
 from dotenv import load_dotenv
 import os
 import sys
-sys.path.insert(0, '..')
-# Currently, "gpt.py" needs to be changed to "gpt1.py" to run. Otherwise it will pull from the incorrect "gpt.py" file.
+sys.path.insert(0, '../src')
 from gpt import GPT
 
 load_dotenv()
@@ -36,10 +35,12 @@ async def on_message(message):
     
     user_input = message.content
     response = ai.run(user_input)
-    print(response)
+    print(f'Current model: {ai._model}\n'
+          f'GPT: {response}')
 
     # Sends message through bot to channel input was sent through
-    await message.channel.send(response)
+    await message.channel.send(f'GPT: \n'
+                               f'{response}')
 
 
 
