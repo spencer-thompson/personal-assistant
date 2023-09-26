@@ -19,17 +19,17 @@ async def on_ready():
 
 # AI communication testing
 @client.event
-async def on_message(mess):
+async def on_message(message):
     # Ignores messages by bot to avoid repeated sending of messages
-    if mess.author == client.user:
+    if message.author == client.user:
         return
     
-    user_input = mess.content
+    user_input = message.content
     response = ai.run(user_input)
     print(response)
 
     # Sends message through bot to channel input was sent through
-    await mess.channel.send(response)
+    await message.channel.send(response)
 
 
 
