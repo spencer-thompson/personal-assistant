@@ -10,4 +10,4 @@ __pycache__/
 sms/
 
 #a related file but is currently saved locally
-src/tutor.json
+/src/system_message.json

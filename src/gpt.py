@@ -124,7 +124,6 @@ class GPT():
 
 if __name__ == "__main__":
     ai = GPT(model = "gpt-4")
-    ai.set_system_message("CSTutor")
     user_input = input(f"Chatting with {ai._model} | (q to quit):\n")
     while user_input != "q" or user_input == "Q":
         for token in ai.srun(user_input):
