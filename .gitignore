@@ -8,3 +8,6 @@ __pycache__/
 
 # SMS (It is shelfed for the time being)
 sms/
+
+#a related file but is currently saved locally
+src/tutor.json
