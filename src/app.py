@@ -17,7 +17,7 @@ Colored text, using the syntax :color[text to be colored],
 where color needs to be replaced with any of the following
 supported colors: blue, green, orange, red, violet, gray/grey, rainbow.
 """
-
+# CSTutor
 # --- Page Config ---
 st.set_page_config(
     layout="wide",
@@ -30,21 +30,36 @@ if "ai" not in st.session_state:
 
 # --- Select AI Options ---
 with st.container():
+
     st.title("AI Chat")
-    st.write("Configure your chat:")
 
     col1, col2 = st.columns([1,1])
-    with col1:
 
-        model = st.radio(
-            "Which model would you like to use?",
-            [":rainbow[GPT-4]", "GPT-3.5"],
-            captions = ["Smartest Model | More Expensive", "Base ChatGPT | Faster Generations"]
+    with col1:
+        st.write("Configure your chat:")
+
+        col1, col2 = st.columns([1,1])
+        with col1:
+
+            model = st.radio(
+                "Which model would you like to use?",
+                [":rainbow[GPT-4]", "GPT-3.5"],
+                captions = ["Smartest Model | More Expensive", "Base ChatGPT | Faster Generations"]
+            )
+
+    with col2:
+        option = st.selectbox(
+            label="Select Custom AI",
+            options=("Assistant", "CSTutor", "English Tutor", "Sarcastic Tutor"), # TODO | Will need to change the Json keys probably
+            index=0,                                                              # But this is tomorrow spencers problem
+            placeholder="Select your AI...",
+            help="Select one!"
         )
+        st.write("You selected: ", option) # Testing | Should work
 
     st.write("---")
 
-
+# --- Change Model ---
 if model == ":rainbow[GPT-4]":
     st.session_state["ai"].update_model("gpt-4")
     gpt_model = "gpt-4"
@@ -52,7 +67,9 @@ else:
     st.session_state["ai"].update_model("gpt-3.5-turbo")
     gpt_model = "gpt-3.5-turbo"
 
-
+# --- Change System Message/Tutor ---
+if option != "Assistant":
+    st.session_state["ai"].set_system_message(message=option) # Should work just fine, but no way to test
 
 # --- Chat Area ---
 user_input = st.chat_input("Send a message")

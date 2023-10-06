@@ -7,17 +7,18 @@ each instance of the GPT class is a conversation thread
 
 """
 import openai
-
+import json
 from typing import Generator
 
 from dotenv import load_dotenv
 import os
 
 class GPT():
+    gpt_models = ("gpt-3.5-turbo", "gpt-4")
 
     def __init__(
             self,
-            model: str = "gpt-3.5-turbo",
+            model: str = gpt_models[0],
             temperature: float = 0.7,
             system_message: str = "You are a helpful assistant"
         ):
@@ -33,8 +34,8 @@ class GPT():
         openai.api_key = os.getenv("OPENAI_API_KEY")
         
     @staticmethod
-    def zero_shot(query: str, mode = 0, gpt_model = "gpt-3.5-turbo", temperature = .7):
-        gpt_instance = GPT(gpt_model, temperature)
+    def zero_shot(query: str, mode = 0, model = gpt_models[0], temperature = .7):
+        gpt_instance = GPT(model, temperature)
         
         if mode == 0:
             answer = gpt_instance._conversation(query)
@@ -43,7 +44,7 @@ class GPT():
 
     def run(self, query: str, mode: int = 0) -> str:
         """Input to get access to all of the various response types within the GPT model
-        mode 0: typical access to the GPT model
+        mode 0: typical access to the GPT model aka conversational
         
         Returns a string."""
         
@@ -114,11 +115,12 @@ class GPT():
     
         return response
     
-    # --- Notes ---
-    # We can start "remodeling" Because we are on a new branch.
-    # You're welcome to go crazy haha.
-    # Maybe you can show me what you want to implement in this new branch,
-    # and then we can start moving together on this.
+    def set_system_message(self, message: str):
+        """reads in a json file and will set system message as whatever your string corresponds"""
+        filepath = "./system_message.json"
+        with open(filepath, "r") as json_file:
+            system_messages = json.load(json_file)
+        self.system_message = [{"role": "system", "content": system_messages[message]}]
 
 if __name__ == "__main__":
     ai = GPT(model = "gpt-4")
