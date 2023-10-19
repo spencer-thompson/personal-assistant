@@ -5,6 +5,7 @@ Home of the GPT Class
 
 each instance of the GPT class is a conversation thread
 
+Additionally, use of just "python gpt.py" is a quite nice CLI.
 """
 import openai
 import json
