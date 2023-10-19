@@ -136,7 +136,7 @@ if __name__ == "__main__":
     ai = GPT(
         model = "gpt-4",
         # model = "gpt-3.5-turbo",
-        system_message = "You are a helpful assistant"
+        system_message = """You are a capable and helpful assistant. If you don't know the answer to a question, tell the user. Format responses in markdown."""
     )
 
     def generate_panel(message: Markdown) -> Panel:

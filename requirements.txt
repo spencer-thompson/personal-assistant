@@ -9,5 +9,6 @@ streamlit
 python-dotenv
 openai
 rich
+
 # Discord
 # discord
