@@ -123,10 +123,44 @@ class GPT():
         self.system_message = [{"role": "system", "content": system_messages[message]}]
 
 if __name__ == "__main__":
-    ai = GPT(model = "gpt-4")
-    user_input = input(f"Chatting with {ai._model} | (q to quit):\n")
+    
+    # --- CLI ---
+    from rich import box
+    from rich.console import Console
+    from rich.panel import Panel
+    from rich.markdown import Markdown
+    from rich.live import Live
+
+    console = Console()
+
+    ai = GPT(
+        model = "gpt-4",
+        # model = "gpt-3.5-turbo",
+        system_message = "You are a helpful assistant"
+    )
+
+    def generate_panel(message: Markdown) -> Panel:
+        return Panel(
+            message,
+            box=box.HEAVY,
+            title=ai._model,
+            border_style="red",
+            # padding=1,
+            expand=True,
+            highlight=True
+        )
+
+    user_input = console.input(f"Chatting with {ai._model} | (q to quit):\nUser: ")
+    # --- Conversation Loop ---
     while user_input != "q" or user_input == "Q":
-        for token in ai.srun(user_input):
-            print(token, end='')
+        whole_message = ''
+
+        with Live(generate_panel(message=whole_message), refresh_per_second=4) as live:
+
+            for token in ai.srun(user_input):
+
+                whole_message += token
+                live.update(generate_panel(Markdown(whole_message)))
+
         print()
-        user_input = input()
+        user_input = console.input("User: ")
