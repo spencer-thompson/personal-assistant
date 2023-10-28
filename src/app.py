@@ -48,14 +48,7 @@ with st.container():
             )
 
     with col2:
-        option = st.selectbox(
-            label="Select Custom AI",
-            options=("Assistant", "CSTutor", "English Tutor", "Sarcastic Tutor"), # TODO | Will need to change the Json keys probably
-            index=0,                                                              # But this is tomorrow spencers problem
-            placeholder="Select your AI...",
-            help="Select one!"
-        )
-        st.write("You selected: ", option) # Testing | Should work
+        option = st.text_input("System Message", value="You are a helpful Assistant.")
 
     st.write("---")
 
@@ -69,7 +62,9 @@ else:
 
 # --- Change System Message/Tutor ---
 if option != "Assistant":
-    st.session_state["ai"].set_system_message(message=option) # Should work just fine, but no way to test
+    st.session_state["ai"].system_message = [
+            {"role": "system", "content": option}
+        ]
 
 # --- Chat Area ---
 user_input = st.chat_input("Send a message")
