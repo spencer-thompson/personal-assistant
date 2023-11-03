@@ -82,6 +82,10 @@ class GPT():
         """Adds a new message to self.messages"""
         self.messages.append({"role": role, "content": content})
 
+    def clear_messages(self):
+        """Clears out old messages"""
+        self.messages = []
+
 
     def update_model(self, new_model: str):
         """Updates the model that your GPT class instance is currently running on"""
@@ -153,7 +157,7 @@ if __name__ == "__main__":
 
     user_input = console.input(f"Chatting with {ai._model} | (q to quit):\nUser: ")
     # --- Conversation Loop ---
-    while user_input != "q" or user_input == "Q":
+    while user_input != "q" or user_input != "Q":
         whole_message = ''
 
         with Live(generate_panel(message=whole_message), refresh_per_second=4) as live:
@@ -165,3 +169,5 @@ if __name__ == "__main__":
 
         print()
         user_input = console.input("User: ")
+        if user_input == "c" or user_input == "C":
+            ai.clear_messages()
