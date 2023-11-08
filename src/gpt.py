@@ -7,19 +7,21 @@ each instance of the GPT class is a conversation thread
 
 Additionally, use of just "python gpt.py" is a quite nice CLI.
 """
-import openai
+from openai import OpenAI
 import json
 from typing import Generator
 
 from dotenv import load_dotenv
 import os
 
+
+
 class GPT():
-    gpt_models = ("gpt-3.5-turbo", "gpt-4")
+    gpt_models = ("gpt-3.5-turbo", "gpt-4", "gpt-4-1106-preview")
 
     def __init__(
             self,
-            model: str = gpt_models[0],
+            model: str = gpt_models[2],
             temperature: float = 0.7,
             system_message: str = "You are a helpful assistant"
         ):
@@ -32,7 +34,8 @@ class GPT():
         self.messages = []
 
         load_dotenv()
-        openai.api_key = os.getenv("OPENAI_API_KEY")
+        self.client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
+        
         
     @staticmethod
     def zero_shot(query: str, mode = 0, model = gpt_models[0], temperature = .7):
@@ -62,7 +65,7 @@ class GPT():
         self._add_message(role="user", content=query)
 
 
-        response = openai.ChatCompletion.create(
+        response = self.client.chat.completions.create(
             model = self._model,
             temperature = self.temperature,
             messages = self.system_message + self.messages,
@@ -71,9 +74,11 @@ class GPT():
 
         total_response = ''
         for chunk in response:
-            yield chunk["choices"][0]["delta"].get("content", '\n') # * maybe change later
+            if chunk.choices[0].delta.content is not None:
 
-            total_response += chunk["choices"][0]["delta"].get("content", '')
+                yield chunk.choices[0].delta.content # * needs work
+
+                total_response += chunk.choices[0].delta.content
 
         self._add_message(role='assistant', content=total_response)
             
@@ -93,7 +98,7 @@ class GPT():
     def _call_openai_api(self):
         """Docstring"""
 
-        response = openai.ChatCompletion.create(
+        response = self.client.chat.completion.create(
             model = self._model,
             temperature = self.temperature,
             messages = self.system_message + self.messages
