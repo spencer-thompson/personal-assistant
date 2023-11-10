@@ -48,14 +48,14 @@ with st.container():
             )
 
     with col2:
-        option = st.text_input("System Message", value="You are a helpful Assistant.")
+        option = st.text_input("System Message", value=ST_SYSTEM_MSG)
 
     st.write("---")
 
 # --- Change Model ---
 if model == ":rainbow[GPT-4]":
-    st.session_state["ai"].update_model("gpt-4")
-    gpt_model = "gpt-4"
+    st.session_state["ai"].update_model("gpt-4-1106-preview")
+    gpt_model = "gpt-4-1106-preview"
 else:
     st.session_state["ai"].update_model("gpt-3.5-turbo")
     gpt_model = "gpt-3.5-turbo"
